@@ -24,7 +24,7 @@ class App < Sinatra::Base
     $amqp_channel.with do |ch|
       request.body.each do |line|
         log = line.split(/>\d* /).last.to_s.strip
-        puts "Publishing #{log[0...12].inspect} to exchange #{exchange_name.inspect} with routing key: #{routing_key.inspect}"
+        puts "Publishing #{log.inspect} to exchange #{exchange_name.inspect} with routing key: #{routing_key.inspect}"
         ch.topic(exchange_name).publish(log, routing_key: routing_key)
       end
     end
