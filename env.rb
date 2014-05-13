@@ -1,5 +1,14 @@
 require 'envied'
 
+class HashVar < Virtus::Attribute
+  require 'rack/utils'
+
+  def coerce(value)
+    return value if !value.is_a? String
+    Rack::Utils.parse_query(value)
+  end
+end
+
 ENVied.configure(enable_defaults: ENV['RACK_ENV'] != 'production') do
   variable :RACK_ENV
   variable :PORT, :Integer, default: 5000
@@ -7,8 +16,27 @@ ENVied.configure(enable_defaults: ENV['RACK_ENV'] != 'production') do
   variable :MAX_THREADS, :Integer, default: 10
   variable :AMQP_URL, :String, default: 'amqp://127.0.0.1:5672'
 
+  # Drain-tokens with (optional) name (using url-query notation):
+  #
+  # Examples:
+  # "d.abcd1234-abc=my-heroku-app&d.abc1234-def=my-other-heroku-app"
+  # or (without names):
+  # "token1=&token2="
+  # In the latter case the values will empty:
+  # ENVied.DRAIN_NAME_MAPPING #=> {'token1' => '', 'token2' => ''}
+  #
+  # Drain-tokens are used to verify requests (POSTs with unknown tokens will yield a 403).
+  # Drain-names can be used in AMQP_EXCHANGE and AMQP_ROUTING_KEY (see below).
+  variable :DRAIN_NAME_MAPPING, :HashVar, default: {}
+
+  # Variables are allowed in these strings:
+  # - drain_token
+  # - drain_name (equals drain_token if you haven't provided a name in DRAIN_NAME_MAPPING)
+  variable :AMQP_EXCHANGE, :String, default: "bunny-drain"
+  variable :AMQP_ROUTING_KEY, :String, default: "heroku.logs.%{drain_name}"
+
   group :production do
-    variable :WORKERS, :Integer
+    variable :WORKERS, :Integer # number of Puma workers
   end
 end
 
