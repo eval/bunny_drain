@@ -9,16 +9,13 @@ class App < Sinatra::Base
     $amqp_conn.create_channel
   }
 
-  before do
-    forbidden_on_unknown_drain_token!
-  end
-
   # Logplex headers:
   # HTTP_LOGPLEX_MSG_COUNT"=>"2",
   # HTTP_LOGPLEX_FRAME_ID"=>""
   # HTTP_LOGPLEX_DRAIN_TOKEN"=>"",
   # HTTP_USER_AGENT"=>"Logplex/v72"
   post '/' do
+    forbidden_on_unknown_drain_token!
     request.body.rewind
 
     $amqp_channel.with do |ch|
@@ -30,6 +27,10 @@ class App < Sinatra::Base
     end
 
     status 201
+  end
+
+  get '/' do
+    "Hello world!"
   end
 
   helpers do
