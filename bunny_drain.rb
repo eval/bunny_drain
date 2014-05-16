@@ -3,7 +3,7 @@ require 'bunny'
 require 'connection_pool'
 require 'envied'
 
-class App < Sinatra::Base
+class BunnyDrain < Sinatra::Base
   $amqp_conn = Bunny.new(ENVied.AMQP_URL).start
   $amqp_channel = ConnectionPool.new(size: ENVied.MAX_THREADS, timeout: 5) {
     $amqp_conn.create_channel

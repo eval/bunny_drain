@@ -1,4 +1,4 @@
 require './env'
-require './app'
+require './bunny_drain'
 
-run App
+run BunnyDrain
