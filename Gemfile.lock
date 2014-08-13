@@ -1,10 +1,12 @@
 GIT
   remote: git://github.com/eval/envied.git
-  revision: e8d5c6484451ac58b9dce3a0ba5d8d9ef9769bbb
+  revision: 06ae7fd8ace90e33b6597780e9db2948acf6a1c3
   branch: master
   specs:
-    envied (0.3.1)
-      virtus (~> 1.0.1)
+    envied (0.5.0)
+      rack (~> 1.4)
+      thor (~> 0.15)
+      virtus (~> 1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -71,19 +73,19 @@ GEM
     spoon (0.0.4)
       ffi
     thor (0.17.0)
-    thread_safe (0.3.3)
-    thread_safe (0.3.3-java)
+    thread_safe (0.3.4)
+    thread_safe (0.3.4-java)
     tilt (1.4.1)
     tux (0.3.0)
       ripl (>= 0.3.5)
       ripl-multi_line (>= 0.2.4)
       ripl-rack (>= 0.2.0)
       sinatra (>= 1.2.1)
-    virtus (1.0.2)
+    virtus (1.0.3)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
-      descendants_tracker (~> 0.0.3)
-      equalizer (~> 0.0.9)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
 
 PLATFORMS
   java
@@ -92,7 +94,7 @@ PLATFORMS
 DEPENDENCIES
   bunny
   connection_pool
-  envied!
+  envied (~> 0.5.0)!
   foreman
   pry
   puma

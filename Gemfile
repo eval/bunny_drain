@@ -4,7 +4,7 @@ gem "sinatra"
 gem "puma"
 gem 'bunny'
 gem 'connection_pool'
-gem 'envied', github: 'eval/envied', branch: 'master'
+gem 'envied', '~> 0.5.0', github: 'eval/envied', branch: 'master'
 
 group :development do
   gem 'pry', require: false
