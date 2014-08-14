@@ -49,9 +49,18 @@ export DRAIN_NAME_MAPPING="d.xxxxxxxx-yyyy-zzzz-xxxx-yyyyyyyyyyyy=my-heroku-app"
 
 ## Configuration
 
-See [env.rb](env.rb) for all ENV-variables that will help you configure the server.
+See [Envfile](Envfile) for all ENV-variables that will help you configure the server.
 
 Note: when running the server with `RACK_ENV=production` all these ENV-variables should be provided.
+
+## Development
+
+To make changes to the application without restarting, the app uses [Shotgun](https://github.com/rtomayko/shotgun).  
+Just start foreman using `Procfile.dev`:
+
+```bash
+bin/foreman start web -f Procfile.dev
+```
 
 ## License
 
