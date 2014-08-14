@@ -1,3 +1,4 @@
+# -*- mode: ruby -*-
 # A sample Envfile
 enable_defaults! { ENV['RACK_ENV'] != 'production' }
 
